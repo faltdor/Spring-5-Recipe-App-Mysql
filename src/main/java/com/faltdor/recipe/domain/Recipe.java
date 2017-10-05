@@ -4,12 +4,16 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.faltdor.recipe.enums.Difficulty;
 
 @Entity
 public class Recipe {
@@ -28,6 +32,9 @@ public class Recipe {
     
     @Lob
     private Byte image;
+    
+    @Enumerated(value=EnumType.STRING)
+    private Difficulty difficulty;
     
     @OneToOne(cascade=CascadeType.ALL)
     private Note note;
@@ -125,6 +132,16 @@ public class Recipe {
 	}
 	public void setNote(Note note) {
 		this.note = note;
+	}
+
+
+	public Difficulty getDifficulty() {
+		return difficulty;
+	}
+
+
+	public void setDifficulty(Difficulty difficulty) {
+		this.difficulty = difficulty;
 	}
     
     
