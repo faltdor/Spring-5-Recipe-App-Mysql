@@ -26,6 +26,13 @@ public class Ingredient {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	private UnitOfMeasure measure;
+	
+	public Ingredient(String description, BigDecimal amount, UnitOfMeasure measure) {
+		this.description = description;
+		this.amount = amount;
+		this.recipe = recipe;
+		this.measure = measure;
+	}
 
 	public Long getId() {
 		return id;
