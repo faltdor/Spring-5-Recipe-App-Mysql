@@ -1,11 +1,14 @@
 package com.faltdor.recipe.domain;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -29,13 +32,24 @@ public class Recipe {
     @OneToOne(cascade=CascadeType.ALL)
     private Note note;
 	
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="recipe")
+    private Set<Ingredient> ingrediets;
+    
     
     public Recipe() {
 	}
     
     
-    
-    
+	public Set<Ingredient> getIngrediets() {
+		return ingrediets;
+	}
+
+
+	public void setIngrediets(Set<Ingredient> ingrediets) {
+		this.ingrediets = ingrediets;
+	}
+
+
 	public Recipe(String description, Integer prepTime, Integer cookTime, Integer servings, String source, String url,
 			String directions, Byte image, Note note) {
 		this.description = description;
