@@ -3,10 +3,12 @@ package com.faltdor.recipe.domain;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Ingredient {
@@ -20,6 +22,10 @@ public class Ingredient {
 	
 	@ManyToOne
 	private Recipe recipe;
+	
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	private UnitOfMeasure measure;
 
 	public Long getId() {
 		return id;
@@ -52,6 +58,16 @@ public class Ingredient {
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
 	}
+
+	public UnitOfMeasure getMeasure() {
+		return measure;
+	}
+
+	public void setMeasure(UnitOfMeasure measure) {
+		this.measure = measure;
+	}
+	
+	
 	
 	
 	
