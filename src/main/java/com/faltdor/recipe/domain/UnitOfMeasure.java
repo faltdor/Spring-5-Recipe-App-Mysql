@@ -17,7 +17,7 @@ public class UnitOfMeasure {
 	
 	private String description;
 	
-
+	public UnitOfMeasure() {}
 	
 	
 }

@@ -3,6 +3,8 @@ package com.faltdor.recipe.services.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class RecipeServiceImpl implements IRecipeService {
 	}
 
 	@Override
+	@Transactional
 	public Set<Recipe> getRecipes() {
 		log.info("Retrieve data from Recipe");
 		Set<Recipe> recipeSet = new HashSet<>();

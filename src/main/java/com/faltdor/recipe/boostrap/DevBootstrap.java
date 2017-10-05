@@ -7,13 +7,11 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.apache.aries.blueprint.container.RecipeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import com.faltdor.recipe.controller.IndexController;
 import com.faltdor.recipe.domain.Category;
 import com.faltdor.recipe.domain.Ingredient;
 import com.faltdor.recipe.domain.Note;
