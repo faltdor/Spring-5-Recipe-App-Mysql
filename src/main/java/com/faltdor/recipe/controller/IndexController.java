@@ -1,6 +1,5 @@
 package com.faltdor.recipe.controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 public class IndexController {

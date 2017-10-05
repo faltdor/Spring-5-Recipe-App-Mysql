@@ -7,11 +7,13 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.apache.aries.blueprint.container.RecipeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.faltdor.recipe.controller.IndexController;
 import com.faltdor.recipe.domain.Category;
 import com.faltdor.recipe.domain.Ingredient;
 import com.faltdor.recipe.domain.Note;
@@ -22,7 +24,10 @@ import com.faltdor.recipe.repositories.ICategoryRepository;
 import com.faltdor.recipe.repositories.IRecipeRepository;
 import com.faltdor.recipe.repositories.IUnitOfMeasureRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class DevBootstrap  implements ApplicationListener<ContextRefreshedEvent>{
 	
 	private final IRecipeRepository recipeRepository;
@@ -40,6 +45,7 @@ public class DevBootstrap  implements ApplicationListener<ContextRefreshedEvent>
 	@Override
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
+		log.debug("Saving data to Dababase");
 		recipeRepository.saveAll(getRecipes());
 	}
 

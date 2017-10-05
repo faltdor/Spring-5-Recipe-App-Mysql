@@ -10,7 +10,10 @@ import com.faltdor.recipe.domain.Recipe;
 import com.faltdor.recipe.repositories.IRecipeRepository;
 import com.faltdor.recipe.services.IRecipeService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class RecipeServiceImpl implements IRecipeService {
 
 	private final IRecipeRepository recipeRepository;
@@ -22,6 +25,7 @@ public class RecipeServiceImpl implements IRecipeService {
 
 	@Override
 	public Set<Recipe> getRecipes() {
+		log.info("Retrieve data from Recipe");
 		Set<Recipe> recipeSet = new HashSet<>();
 		recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
 		return recipeSet;
