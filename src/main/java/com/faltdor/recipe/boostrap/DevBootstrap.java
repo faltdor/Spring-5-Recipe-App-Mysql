@@ -136,7 +136,6 @@ public class DevBootstrap  implements ApplicationListener<ContextRefreshedEvent>
                 "\n" +
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
-        guacNotes.setRecipe(guacRecipe);
         guacRecipe.setNote(guacNotes);
 
         //very redundent - could add helper method, and make this simpler
@@ -188,7 +187,6 @@ public class DevBootstrap  implements ApplicationListener<ContextRefreshedEvent>
                 "\n" +
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
-        tacoNotes.setRecipe(tacosRecipe);
         tacosRecipe.setNote(tacoNotes);
 
         tacosRecipe.addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tableSpoonUom));
