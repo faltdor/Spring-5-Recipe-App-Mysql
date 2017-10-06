@@ -1,6 +1,7 @@
 package com.faltdor.recipe.services.impl;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -32,6 +33,18 @@ public class RecipeServiceImpl implements IRecipeService {
 		Set<Recipe> recipeSet = new HashSet<>();
 		recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
 		return recipeSet;
+	}
+	
+	@Override
+	@Transactional
+	public Recipe findById(long id) {
+		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+		
+		if(!recipeOptional.isPresent()) {
+			throw new RuntimeException("Recipe Not Found");
+		}
+		
+		return recipeOptional.get();
 	}
 	
 	

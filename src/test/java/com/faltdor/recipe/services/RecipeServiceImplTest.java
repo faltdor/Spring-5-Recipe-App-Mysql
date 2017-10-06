@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Before;
@@ -16,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import com.faltdor.recipe.domain.Recipe;
 import com.faltdor.recipe.repositories.IRecipeRepository;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
+import static org.mockito.Mockito.*;
 
 public class RecipeServiceImplTest {
 	
@@ -42,6 +44,22 @@ public class RecipeServiceImplTest {
 		
 		assertEquals(recipies.size(), 1);
 		verify(recipeRepository, times(1)).findAll();
+	}
+	
+	
+	@Test
+	public void getRecipeByIdTest() {
+		Recipe recipe = new Recipe();
+		Optional<Recipe> recipeOptional = Optional.of(recipe);
+		
+		when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+		
+		Recipe recipeReturned = recipeService.findById(1L);
+		
+		assertNotNull("Null recipe",recipeReturned);
+		verify(recipeRepository,times(1)).findById(anyLong());
+		verify(recipeRepository, never()).findAll();
+		
 	}
 
 }
