@@ -84,7 +84,7 @@
 						<include>**/*IT.java</include>
 					</includes>
 					<additionalClasspathElements>
-						${basedir}/target/classes
+						<additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>	
 					</additionalClasspathElements>
 					<parallel>none</parallel>
 
