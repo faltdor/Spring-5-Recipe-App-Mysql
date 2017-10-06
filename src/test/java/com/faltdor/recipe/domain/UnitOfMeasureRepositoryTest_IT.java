@@ -42,7 +42,7 @@ public class UnitOfMeasureRepositoryTest_IT {
 		
 		Optional<UnitOfMeasure> unitOfMesuOptional = unitOfMeasureRepository.findByDescription(unitOfMeasure);
 		
-		assertEquals(Optional.empty(),unitOfMesuOptional.get().getDescription());
+		assertTrue(!unitOfMesuOptional.isPresent());
 		
 	}
 
