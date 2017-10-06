@@ -74,7 +74,7 @@ public class RecipeServiceIT {
         source.setUrl(URL);
 		
         NoteCommand notes = new NoteCommand();
-        notes.setId(NOTES_ID);
+        notes.setNote(DESCRIPTION);
 
         source.setNote(notes);
         CategoryCommand category = new CategoryCommand();
@@ -109,7 +109,7 @@ public class RecipeServiceIT {
         assertEquals(SERVINGS, recipeResult.getServings());
         assertEquals(SOURCE, recipeResult.getSource());
         assertEquals(URL, recipeResult.getUrl());
-        assertEquals(NOTES_ID, recipeResult.getNote().getId());
+        assertEquals(DESCRIPTION, recipeResult.getNote().getNote());
         assertEquals(2, recipeResult.getCategories().size());
         assertEquals(2, recipeResult.getIngredients().size());
 	}
