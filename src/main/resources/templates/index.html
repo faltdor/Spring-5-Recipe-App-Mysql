@@ -2,24 +2,62 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+	crossorigin="anonymous">
+
 <title>Recipe App</title>
 </head>
 <body>
-	<h1>Recipes</h1>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="display-3">My Recipes</h1>
+			<p class="lead">This application was created using Spring 5 -
+				Spring Data and thymeleaf template .</p>
+			<p class="lead">
+				You can see the code at <span role="presentation"> <a
+					href="https://github.com/faltdor/Spring-5-Recipe-App">Spring 5
+						Recipe App</a></span>
+			</p>
+		</div>
 
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="recipe : ${recipes}">
-				<td th:text="${recipe.id}"></td>
-				<td th:text="${recipe.description}"></td>
-			</tr>
-		</tbody>
-	</table>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1>List of Recipes</h1>
+			</div>
+			<div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="recipe : ${recipes}">
+							<td th:text="${recipe.id}"></td>
+							<td th:text="${recipe.description}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<footer class="footer">
+			<p>&copy; @Faltdor 2017</p>
+		</footer>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+
 </body>
 </html>
