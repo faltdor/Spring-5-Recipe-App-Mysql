@@ -15,7 +15,7 @@ import com.faltdor.recipe.repositories.IUnitOfMeasureRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class UnitOfMeasureRepositoryTest {
+public class UnitOfMeasureRepositoryTest_IT {
 
 	@Autowired
 	IUnitOfMeasureRepository unitOfMeasureRepository;
