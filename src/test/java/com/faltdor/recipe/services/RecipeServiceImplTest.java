@@ -14,6 +14,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.faltdor.recipe.commands.RecipeCommand;
+import com.faltdor.recipe.converters.RecipeCommandToRecipe;
+import com.faltdor.recipe.converters.RecipeToRecipeCommand;
 import com.faltdor.recipe.domain.Recipe;
 import com.faltdor.recipe.repositories.IRecipeRepository;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
@@ -25,11 +28,15 @@ public class RecipeServiceImplTest {
 	
 	@Mock
 	IRecipeRepository recipeRepository;
+	@Mock
+	RecipeCommandToRecipe recipeCommandToRecipe;
+	@Mock
+	RecipeToRecipeCommand recipeToRecipeCommand;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		recipeService = new RecipeServiceImpl(recipeRepository);
+		recipeService = new RecipeServiceImpl(recipeRepository,recipeCommandToRecipe,recipeToRecipeCommand);
 	}
 	
 	@Test
@@ -61,5 +68,7 @@ public class RecipeServiceImplTest {
 		verify(recipeRepository, never()).findAll();
 		
 	}
-
+	
+	
+	
 }

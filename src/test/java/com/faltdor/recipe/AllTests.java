@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import com.faltdor.recipe.controllers.IndexControllerTest;
 import com.faltdor.recipe.controllers.RecipeControllerTest;
+import com.faltdor.recipe.converters.UnitOfMeasureToUnitOfMeasureCommandTest;
 import com.faltdor.recipe.domain.CategoryTest;
 import com.faltdor.recipe.domain.UnitOfMeasureRepositoryTest_IT;
 import com.faltdor.recipe.services.RecipeServiceImplTest;
@@ -16,7 +17,11 @@ import com.faltdor.recipe.services.RecipeServiceImplTest;
 				RecipeServiceImplTest.class,
 				CategoryTest.class,
 				UnitOfMeasureRepositoryTest_IT.class,
-				RecipeControllerTest.class})
+				RecipeControllerTest.class,
+				UnitOfMeasureToUnitOfMeasureCommandTest.class
+				
+
+				})
 public class AllTests {
 
 }
