@@ -3,9 +3,6 @@ package com.faltdor.recipe.commands;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.faltdor.recipe.domain.Category;
-import com.faltdor.recipe.domain.Ingredient;
-import com.faltdor.recipe.domain.Note;
 import com.faltdor.recipe.enums.Difficulty;
 
 import lombok.Getter;

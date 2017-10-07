@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-import com.faltdor.recipe.controller.IndexController;
 import com.faltdor.recipe.domain.Recipe;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
 import static org.mockito.Mockito.*;

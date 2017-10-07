@@ -9,5 +9,6 @@ public interface IRecipeService {
 	
 	public Set<Recipe> getRecipes();
 	public Recipe findById(long id);
+	public RecipeCommand findCommandById(Long id);
 	public RecipeCommand saveRecipeCommand(RecipeCommand command);
 }

@@ -14,9 +14,17 @@
 	<div class="container">
 		<div class="row">
 			<div class="pannel-group">
-				<div class="panel panel-primary">
+				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h1 class="panel-title" th:text="${recipe.description}"></h1>
+						<div class="row">
+							<div class="col-md-11">
+								<h1 class="panel-title" th:text="${recipe.description}"></h1>
+							</div>
+							<div class="col-md-1">
+								<a class="btn btn-primary" href="#"
+									th:href="@{'/recipe/'+${recipe.id}+'/update'}" role="button">Edit</a>
+							</div>
+						</div>
 					</div>
 					<div class="panel-body">
 						<div class="row">
@@ -25,7 +33,7 @@
 							</div>
 							<div class="col-md-9">
 								<ul>
-									<li th:each="category:${recipe.categories}" 
+									<li th:each="category:${recipe.categories}"
 										th:text="${category.getDescription()}"></li>
 								</ul>
 							</div>
@@ -41,7 +49,7 @@
 								<h5>Difficulty:</h5>
 							</div>
 							<div class="col-md-3">
-								<p >Easy</p>
+								<p>Easy</p>
 							</div>
 						</div>
 						<div class="row">
@@ -74,7 +82,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-primary">
+				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h1 class="panel-title">Ingredients</h1>
 					</div>
@@ -82,7 +90,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<ul>
-									<li th:each="ingredient:${recipe.ingredients}" 
+									<li th:each="ingredient:${recipe.ingredients}"
 										th:text="${ingredient.getAmount() +' '+ 
 												   ingredient.measure.getDescription()+' - '+ 	
 										 		   ingredient.getDescription()}"></li>
@@ -91,7 +99,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-primary">
+				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h1 class="panel-title">Directions</h1>
 					</div>
@@ -103,7 +111,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-primary">
+				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h1 class="panel-title">Notes</h1>
 					</div>
