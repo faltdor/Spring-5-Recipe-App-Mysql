@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.faltdor.recipe.commands.RecipeCommand;
 import com.faltdor.recipe.converters.RecipeCommandToRecipe;
 import com.faltdor.recipe.converters.RecipeToRecipeCommand;
 import com.faltdor.recipe.domain.Recipe;
@@ -67,6 +66,16 @@ public class RecipeServiceImplTest {
 		verify(recipeRepository,times(1)).findById(anyLong());
 		verify(recipeRepository, never()).findAll();
 		
+	}
+	
+	@Test 
+	public void deleteRecipeTest() {
+		//Given
+		Long id = Long.valueOf(2L);
+		//When
+		recipeService.deleteById(id);
+		//Then
+		verify(recipeRepository,times(1)).deleteById(anyLong());
 	}
 	
 	
