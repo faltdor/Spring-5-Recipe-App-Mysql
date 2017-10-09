@@ -5,9 +5,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.faltdor.recipe.commands.IngredientCommand;
+import com.faltdor.recipe.converters.IngredientCommandToIngredient;
 import com.faltdor.recipe.converters.IngredientToIngredientCommand;
+import com.faltdor.recipe.domain.Ingredient;
 import com.faltdor.recipe.domain.Recipe;
 import com.faltdor.recipe.repositories.IRecipeRepository;
+import com.faltdor.recipe.repositories.IUnitOfMeasureRepository;
 import com.faltdor.recipe.services.IIngredientService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +21,19 @@ import lombok.extern.slf4j.Slf4j;
 public class IngredientServiceImpl implements IIngredientService {
 	
 	private final IRecipeRepository recipeRepository;
-	private final IngredientToIngredientCommand ingredientCommand;
+	private final IngredientToIngredientCommand ingredientToIngredientCommand;
+	private final IngredientCommandToIngredient ingredientCommandToIngredient;
+	private final IUnitOfMeasureRepository iUnitOfMeasureRepository;
+	
 				  
-	public IngredientServiceImpl(IRecipeRepository recipeRepository, IngredientToIngredientCommand ingredientCommand) {
+	public IngredientServiceImpl(IRecipeRepository recipeRepository, 
+								 IngredientToIngredientCommand ingredientCommand,
+								 IUnitOfMeasureRepository iUnitOfMeasureRepository,
+								 IngredientCommandToIngredient ingredientCommandToIngredient) {
 		this.recipeRepository = recipeRepository;
-		this.ingredientCommand = ingredientCommand;
+		this.ingredientToIngredientCommand = ingredientCommand;
+		this.iUnitOfMeasureRepository = iUnitOfMeasureRepository;
+		this.ingredientCommandToIngredient = ingredientCommandToIngredient;
 	}
 
 	public IngredientCommand findByRecipeIdAndIngredientId(Long ingredientId, Long idRecipe ) {
@@ -39,7 +50,7 @@ public class IngredientServiceImpl implements IIngredientService {
 		Optional<IngredientCommand> ingredientCommandOptional =
 					recipe.getIngredients().stream()
 					.filter(ingredient -> ingredient.getId().equals(ingredientId))
-					.map(ingredient -> ingredientCommand.convert(ingredient)).findFirst();
+					.map(ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
 		
 		if(!ingredientCommandOptional.isPresent()) {
 			//TODO: Impl error Handlding
@@ -47,6 +58,44 @@ public class IngredientServiceImpl implements IIngredientService {
 		}
 		
 		return ingredientCommandOptional.get();
+	}
+
+	public IngredientCommand saveIngredient(IngredientCommand saveCommand) {
+		
+		Optional<Recipe> recipeOptional = recipeRepository.findById(saveCommand.getRecipeId());
+		
+		if(!recipeOptional.isPresent()) {
+			log.error("Recipe not found :"+saveCommand.getRecipeId());
+			return new IngredientCommand();
+		}else {
+			Recipe recipe = recipeOptional.get();
+			
+			Optional<Ingredient> ingredientOptional = recipe.getIngredients()
+															.stream()
+															.filter(ingredient -> ingredient.getId().equals(saveCommand.getId()))
+															.findFirst();
+			if(ingredientOptional.isPresent()) {
+				Ingredient ingredient = ingredientOptional.get();
+				ingredient.setDescription(saveCommand.getDescription());
+				ingredient.setMeasure(iUnitOfMeasureRepository.findById(saveCommand.getMeasure().getId())
+																		.orElseThrow(() -> new RuntimeException("UOM NOT FOUND")));
+				
+			}else {
+				recipe.addIngredient(ingredientCommandToIngredient.convert(saveCommand));
+			}
+			
+			Recipe saveRecipe = recipeRepository.save(recipe);
+			//TODO:Check for fail!
+			
+			return ingredientToIngredientCommand.convert(saveRecipe.getIngredients()
+																   .stream()
+																   .filter(recipeIngredients -> recipeIngredients.getId().equals(saveCommand.getId()))
+																   .findFirst()
+																   .get());
+		}
+		
+		
+			
 	}
 
 }

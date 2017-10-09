@@ -18,8 +18,10 @@ import com.faltdor.recipe.converters.UnitOfMeasureCommandToUnitOfMeasureTest;
 import com.faltdor.recipe.converters.UnitOfMeasureToUnitOfMeasureCommandTest;
 import com.faltdor.recipe.domain.CategoryTest;
 import com.faltdor.recipe.domain.UnitOfMeasureRepositoryTest_IT;
+import com.faltdor.recipe.services.IngredientServiceImplTest;
 import com.faltdor.recipe.services.RecipeServiceIT;
 import com.faltdor.recipe.services.RecipeServiceImplTest;
+import com.faltdor.recipe.services.UnitOfMeasureServiceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ Spring5RecipeAppApplicationTests.class ,
@@ -39,7 +41,9 @@ import com.faltdor.recipe.services.RecipeServiceImplTest;
 				RecipeToRecipeCommandTest.class,
 				UnitOfMeasureCommandToUnitOfMeasureTest.class,
 				UnitOfMeasureToUnitOfMeasureCommandTest.class,
-				RecipeServiceIT.class
+				RecipeServiceIT.class,
+				UnitOfMeasureServiceTest.class,
+				IngredientServiceImplTest.class
 				
 				})
 public class AllTests {

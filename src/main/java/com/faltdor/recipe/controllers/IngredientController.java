@@ -3,11 +3,14 @@ package com.faltdor.recipe.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.faltdor.recipe.commands.IngredientCommand;
 import com.faltdor.recipe.services.impl.IngredientServiceImpl;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
+import com.faltdor.recipe.services.impl.UnitOfMeasureService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +23,14 @@ public class IngredientController {
 	
 	private final IngredientServiceImpl ingredientService;
 	
-	public IngredientController(RecipeServiceImpl recipeService,IngredientServiceImpl ingredientService) {
+	private final UnitOfMeasureService uoMeasureService;
+	
+	public IngredientController(RecipeServiceImpl recipeService,
+								IngredientServiceImpl ingredientService,
+								UnitOfMeasureService uoMeasureService) {
 		this.recipeService = recipeService;
 		this.ingredientService = ingredientService;
+		this.uoMeasureService = uoMeasureService;
 	}
 	
 	@GetMapping
@@ -45,5 +53,26 @@ public class IngredientController {
 		return "recipe/ingredient/show";
 		
 	}
+	
+	@GetMapping
+	@RequestMapping("recipe/{recipeId}/ingredient/{ingredientId}/update")
+	public String  updateRecipeIngredient(@PathVariable String recipeId,
+										  @PathVariable String ingredientId,Model model) {
+		
+		model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(ingredientId), Long.valueOf(recipeId)));
+		model.addAttribute("uomList", uoMeasureService.findAll());
+		return "recipe/ingredient/ingredientform";
+	}
+	
+	@GetMapping
+	@RequestMapping("recipe/{recipeId}/ingredient")
+	public String saveOrUpdate(@ModelAttribute IngredientCommand ingredient) {
+		
+		IngredientCommand saveIngredient = ingredientService.saveIngredient(ingredient);
+		
+		return "redirect:/recipe/"+saveIngredient.getRecipeId()+"/ingredient/"+saveIngredient.getId()+"/show";
+	}
+	
+	
 
 }
