@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.faltdor.recipe.commands.IngredientCommand;
 import com.faltdor.recipe.commands.RecipeCommand;
+import com.faltdor.recipe.services.impl.IngredientServiceImpl;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,7 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class IngredientControllerTest {
 	
 	@Mock
-	RecipeServiceImpl service;
+	RecipeServiceImpl recipeService;
+	
+	@Mock
+	IngredientServiceImpl ingredientService;
 	
 	IngredientController controller;
 	
@@ -29,7 +34,7 @@ public class IngredientControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new IngredientController(service);
+		controller = new IngredientController(recipeService, ingredientService);
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
@@ -38,7 +43,7 @@ public class IngredientControllerTest {
 		//Given
 		RecipeCommand recipeCommand = new RecipeCommand();
 		
-		when(service.findCommandById(anyLong())).thenReturn(recipeCommand);
+		when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
 		
 		//when
 		mockMvc.perform(get("/recipe/1/ingredients"))
@@ -47,7 +52,22 @@ public class IngredientControllerTest {
 						.andExpect(model().attributeExists("recipe"));
 		
 		//then
-		verify(service,times(1)).findCommandById(anyLong());
+		verify(recipeService,times(1)).findCommandById(anyLong());
+		
+	}
+	
+	@Test
+	public void testShowIngredient() throws Exception{
+		//Given
+		IngredientCommand ingredientCommand = new IngredientCommand();
+		
+		//When
+		when(ingredientService.findByRecipeIdAndIngredientId(anyLong(),anyLong())).thenReturn(ingredientCommand);
+		
+		mockMvc.perform(get("/recipe/1/ingredient/2/show"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("recipe/ingredient/show"))
+        .andExpect(model().attributeExists("ingredient"));
 		
 	}
 

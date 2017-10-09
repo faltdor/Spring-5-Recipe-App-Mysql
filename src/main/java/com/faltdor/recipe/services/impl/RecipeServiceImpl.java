@@ -80,11 +80,5 @@ public class RecipeServiceImpl implements IRecipeService {
 	public void deleteById(Long id) {
 		recipeRepository.deleteById(id);
 	}
-
-	
-	
-	
-	
-	
 	
 }

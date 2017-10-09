@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.faltdor.recipe.services.impl.IngredientServiceImpl;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,11 @@ public class IngredientController {
 	
 	private final RecipeServiceImpl recipeService;
 	
-	public IngredientController(RecipeServiceImpl service) {
-		this.recipeService = service;
+	private final IngredientServiceImpl ingredientService;
+	
+	public IngredientController(RecipeServiceImpl recipeService,IngredientServiceImpl ingredientService) {
+		this.recipeService = recipeService;
+		this.ingredientService = ingredientService;
 	}
 	
 	@GetMapping
@@ -29,6 +33,17 @@ public class IngredientController {
 		model.addAttribute("recipe",recipeService.findCommandById(Long.valueOf(recipeId)));
 		
 		return "recipe/ingredient/list";
+	}
+	
+	@GetMapping
+	@RequestMapping("recipe/{recipeId}/ingredient/{ingredientId}/show")
+	public String showIngredient(@PathVariable String recipeId,
+								@PathVariable String ingredientId,Model model) {
+		
+		model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(ingredientId), Long.valueOf(recipeId)));
+		
+		return "recipe/ingredient/show";
+		
 	}
 
 }
