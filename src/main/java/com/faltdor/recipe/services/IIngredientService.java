@@ -6,4 +6,5 @@ public interface IIngredientService {
 	
 	public IngredientCommand findByRecipeIdAndIngredientId(Long ingredientId,Long idRecipe) ;
 	
+	public void deleteById(Long recipeId, Long idToDelete);
 }

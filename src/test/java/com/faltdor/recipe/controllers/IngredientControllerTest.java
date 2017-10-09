@@ -22,6 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.HashSet;
+
 public class IngredientControllerTest {
 	
 	@Mock
@@ -84,7 +86,8 @@ public class IngredientControllerTest {
 		IngredientCommand ingredientCommand = new IngredientCommand();
 				
 		when(ingredientService.findByRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientCommand);
-		
+		when(uomService.findAll()).thenReturn(new HashSet<>());
+		 
 		//then
 		mockMvc.perform(get("/recipe/1/ingredient/2/update"))
 			   .andExpect(status().isOk())
@@ -109,6 +112,18 @@ public class IngredientControllerTest {
 						.andExpect(view().name("redirect:/recipe/2/ingredient/27/show"));
 		
 	}
+	
+	  @Test
+	  public void testDeleteIngredient() throws Exception {
+		  
+		  	//then
+	        mockMvc.perform(get("/recipe/2/ingredient/3/delete"))
+	                .andExpect(status().is3xxRedirection())
+	                .andExpect(view().name("redirect:/recipe/2/ingredients"));
+
+	        verify(ingredientService, times(1)).deleteById(anyLong(), anyLong());
+	  }
+	
 	
 
 }
