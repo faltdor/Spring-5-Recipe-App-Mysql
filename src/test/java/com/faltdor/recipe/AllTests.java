@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.faltdor.recipe.controllers.ImageControllerTest;
 import com.faltdor.recipe.controllers.IndexControllerTest;
 import com.faltdor.recipe.controllers.RecipeControllerTest;
 import com.faltdor.recipe.converters.CategoryCommandToCategoryTest;
@@ -43,7 +44,8 @@ import com.faltdor.recipe.services.UnitOfMeasureServiceTest;
 				UnitOfMeasureToUnitOfMeasureCommandTest.class,
 				RecipeServiceIT.class,
 				UnitOfMeasureServiceTest.class,
-				IngredientServiceImplTest.class
+				IngredientServiceImplTest.class,
+				ImageControllerTest.class
 				
 				})
 public class AllTests {
