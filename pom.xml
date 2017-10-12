@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.faltdor.recipe</groupId>
-	<artifactId>Spring-5-Recipe-App</artifactId>
+	<artifactId>Spring-5-Recipe-App-Mysql</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Recipe-App</name>
-	<description>Spring Boot Recipe app</description>
+	<description>Spring Boot Recipe app using Mysql</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
