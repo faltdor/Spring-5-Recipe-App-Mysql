@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,9 @@ public class ImageControllerTest {
 		MockitoAnnotations.initMocks(this);
 
 		imageController = new ImageController(imageService, recipeService);
-		mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(imageController)
+				.setControllerAdvice(new ControllerExceptionHandler())
+				.build();
 	}
 
 	@Test
@@ -104,6 +107,17 @@ public class ImageControllerTest {
 		byte[] reponseBytes = response.getContentAsByteArray();
 
 		assertEquals(s.getBytes().length, reponseBytes.length);
+	}
+	
+	
+	@Test
+	public void testGetImageNumberFormaException() throws Exception {
+		
+		//when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+		
+		mockMvc.perform(get("/recipe/xxx/image"))
+		.andExpect(status().isBadRequest())
+		.andExpect(view().name("400error"));
 	}
 
 }
