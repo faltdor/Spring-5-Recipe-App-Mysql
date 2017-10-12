@@ -50,13 +50,13 @@ public class RecipeController {
 	
 	
 	@PostMapping("/recipe")
-	public String saveOrUpdateRecipe(@Valid @ModelAttribute RecipeCommand command , BindingResult bindingResult) {
+	public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand command , BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
 			bindingResult.getAllErrors().forEach(objectError -> {
 				log.debug(objectError.toString());
 			});
-			return RECIPE_RECIPEFORM;
+			return "recipe/recipeform";
 		}
 		
 		
