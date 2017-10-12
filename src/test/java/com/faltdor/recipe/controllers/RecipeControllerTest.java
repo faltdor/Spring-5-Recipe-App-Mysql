@@ -11,13 +11,18 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.faltdor.recipe.commands.RecipeCommand;
 import com.faltdor.recipe.domain.Recipe;
+import com.faltdor.recipe.exceptions.NotFoundException;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
+
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.Optional;
 
 public class RecipeControllerTest {
 	
@@ -94,5 +99,14 @@ public class RecipeControllerTest {
 		
 		verify(recipeService,times(1)).deleteById(anyLong());
 	}
-
+	
+	@Test
+	public void testGetRecipeNotFound() throws Exception {
+		
+		when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+		
+		mockMvc.perform(get("/recipe/1/show"))
+		.andExpect(status().isNotFound());
+	}
+	
 }

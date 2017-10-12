@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import com.faltdor.recipe.converters.RecipeCommandToRecipe;
 import com.faltdor.recipe.converters.RecipeToRecipeCommand;
 import com.faltdor.recipe.domain.Recipe;
+import com.faltdor.recipe.exceptions.NotFoundException;
 import com.faltdor.recipe.repositories.IRecipeRepository;
 import com.faltdor.recipe.services.impl.RecipeServiceImpl;
 import static org.mockito.Mockito.*;
@@ -76,6 +77,15 @@ public class RecipeServiceImplTest {
 		recipeService.deleteById(id);
 		//Then
 		verify(recipeRepository,times(1)).deleteById(anyLong());
+	}
+	
+	@Test(expected=NotFoundException.class)
+	public void testGetRecipeByIdTestNotFound() throws Exception {
+		Optional<Recipe> recipeOptiona = Optional.empty();
+		
+		when(recipeRepository.findById(anyLong())).thenReturn(recipeOptiona);
+		
+		Recipe recipe = recipeService.findById(1L);
 	}
 	
 	

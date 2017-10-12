@@ -13,6 +13,7 @@ import com.faltdor.recipe.commands.RecipeCommand;
 import com.faltdor.recipe.converters.RecipeCommandToRecipe;
 import com.faltdor.recipe.converters.RecipeToRecipeCommand;
 import com.faltdor.recipe.domain.Recipe;
+import com.faltdor.recipe.exceptions.NotFoundException;
 import com.faltdor.recipe.repositories.IRecipeRepository;
 import com.faltdor.recipe.services.IRecipeService;
 
@@ -51,7 +52,7 @@ public class RecipeServiceImpl implements IRecipeService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 		
 		if(!recipeOptional.isPresent()) {
-			throw new RuntimeException("Recipe Not Found");
+			throw new NotFoundException("Recipe Not Found");
 		}
 		
 		return recipeOptional.get();
