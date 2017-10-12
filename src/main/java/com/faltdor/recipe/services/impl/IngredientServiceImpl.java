@@ -9,6 +9,7 @@ import com.faltdor.recipe.converters.IngredientCommandToIngredient;
 import com.faltdor.recipe.converters.IngredientToIngredientCommand;
 import com.faltdor.recipe.domain.Ingredient;
 import com.faltdor.recipe.domain.Recipe;
+import com.faltdor.recipe.exceptions.NotFoundException;
 import com.faltdor.recipe.repositories.IRecipeRepository;
 import com.faltdor.recipe.repositories.IUnitOfMeasureRepository;
 import com.faltdor.recipe.services.IIngredientService;
@@ -41,8 +42,8 @@ public class IngredientServiceImpl implements IIngredientService {
 		Optional<Recipe> recipeOptional =  recipeRepository.findById(idRecipe);
 		
 		if(!recipeOptional.isPresent()) {
-			//TODO: Impl error Handlding
 			log.debug("!Error recipe id not found "+idRecipe);
+			throw new NotFoundException("Recipe Not Found");
 		}
 		
 		Recipe recipe = recipeOptional.get();
@@ -52,9 +53,9 @@ public class IngredientServiceImpl implements IIngredientService {
 					.filter(ingredient -> ingredient.getId().equals(ingredientId))
 					.map(ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
 		
-		if(!ingredientCommandOptional.isPresent()) {
-			//TODO: Impl error Handlding
-			log.debug("!Error recipe id not found "+idRecipe);
+		if(!ingredientCommandOptional.isPresent()) {			
+			log.debug("!Error Ingredient not found "+idRecipe);
+			throw new NotFoundException("Ingredient Not Found");
 		}
 		
 		return ingredientCommandOptional.get();
