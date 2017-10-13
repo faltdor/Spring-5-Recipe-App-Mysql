@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@Profile("default")
 public class DevBootstrap  implements ApplicationListener<ContextRefreshedEvent>{
 	
 	private final IRecipeRepository recipeRepository;
@@ -43,7 +45,7 @@ public class DevBootstrap  implements ApplicationListener<ContextRefreshedEvent>
 	@Override
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		log.debug("Saving data to Dababase");
+		log.debug("Saving data to Dababase H2");
 		recipeRepository.saveAll(getRecipes());
 	}
 

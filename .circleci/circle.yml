@@ -40,9 +40,16 @@ jobs:
       # run tests!
       - run: mvn integration-test cobertura:cobertura
       
-      - store_testresults:
-          path: target/surefire-reports
+      - store_test_results:
+          path: /tmp/test-results
       
       - run:
           name: Send to CodeCov
           command: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+          
+          
+          
+          
+          
+          
+          
